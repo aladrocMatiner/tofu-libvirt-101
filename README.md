@@ -1,4 +1,4 @@
-# tofu-libvirt-101
+# Use OpenTofu to create a vm locally using libvirt
 
 # | Installing Tofu
 Recomend a tool called tenv:
@@ -14,7 +14,18 @@ Then run this command and select the versions of the tofu terraform terragrunt a
 ```
 tenv
 ```
-# | Config the pool
+
+# | quemu + KVM + libvirt
+
+## | Install
+```bash
+## TODO ###
+```
+Other Packages
+```bash
+sudo apt install cloud-image-utils
+```
+## | Config the pool
 
 ``` bash
 ## List all pools
@@ -54,13 +65,22 @@ virsh undefine ubuntu-demo --remove-all-storage
 ```
 u can also use the teardown.sh to be faster
 
+```bash
+### Console
+virsh console ubuntu-demo
+or 
+tofu apply -auto-approve && virsh console ubuntu-demo
+```
+
 # | Cloud Init
 
 
-```
-vm_name = "ubuntu-demo"
-memory  = 2048
-vcpu    = 2
+Remember to generate your pasword using the SHA and update cloud-init/user-data.yaml 
+```bash
+sudo apt update
+sudo apt install whois
+
+mkpasswd --method=SHA-512
 ```
 
 # | Known problems

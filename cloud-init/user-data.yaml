@@ -1,0 +1,21 @@
+#cloud-config
+hostname: Testing
+
+users:
+  - name: aladroc
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    lock_passwd: false
+    passwd: "$6$nJh6FQUKQcfZTqKu$WPUHI3/dpPsXmwHU6RhDrqDJ68mQnJSnOcbYLiZW.fWiyNwnbqVK4QRxz2Paat8Nurxhrl1WINxAfkd/zAOra."  # optional: hashed password
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfsb4ArX5NyywwwZXojzwwcj3sMtCkb7PWkChK4TuLwP+mh4U1g3xcjK/2NavJQ0VIdyLrjkXk2JJZjoVlW4KYc9ycGMEaeNRXpfTg9SPtHJpTM/EHXV/pGsPGBVRXecHNsu6cFjvab4JwlyrxOMaf5YOzpHIclSEpgBLhTAKtEoVMkITCrpgZNPgOE8MKjBd74371ma+Z4MwSZI7pSp5iqkyNtEgXYV+aAV1zsuF52gWj0p702Ogz0UNrkTwQpWQHhc80tiu/Z4kpY2KvtpGzKfZb1EsPhcG6ws1/Rdx1KazxSEusJqMf49ma8DQsh9sMDVteSzUNS+awQ2Y2vljQEDrckea3SqVKD4GHtq8ZhmhosbLMBYSa25D2hwOFcsegxexlxV6eBMxVS5v0M/xncjUpU3QIQRCQy2mcgJrqK2fft2muCFUOjuw/bpyQIPX9tTDJaZZeByCzscurCtJx09qOSGrmuVZH3FEu9CSlQtZkUGcq9lJfQTO8pE9bgFOfkRAVULsoafHalorjMS+c7syda3w0Ia5iKT71FlvjVRtkWMK95dDQbjq1YDzUVmBM4H1lWjYW3LkUbC6n/0wrfyKg0+02pM7gh56GqnKGYSS5q/U/WwMK4YJaaPpb1pXthlMeSQyqfsr6QCUxcsTebx7bqpC1r4PHcbGroz3reQ== aladroc@josrom01-aladroc#StandardKey
+
+ssh_pwauth: true
+
+packages:
+  - qemu-guest-agent
+
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent

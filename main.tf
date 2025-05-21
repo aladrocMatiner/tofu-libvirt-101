@@ -63,9 +63,9 @@ resource "libvirt_cloudinit_disk" "commoninit" {
 }
 
 data "template_file" "user_data" {
-  template = file("${path.module}/cloud-init/user-data")
+  template = file("${path.module}/cloud-init/user-data.yaml")
 }
 
 data "template_file" "network_config" {
-  template = file("${path.module}/cloud-init/network-config")
+  template = file("${path.module}/cloud-init/network-config.yaml")
 }

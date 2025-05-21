@@ -1,4 +1,5 @@
+#cloud-config
 version: 2
 ethernets:
-  eth0:
+  ens3:
     dhcp4: true
