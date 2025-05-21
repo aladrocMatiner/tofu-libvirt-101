@@ -1,5 +1,5 @@
 variable "vm_name" {
-  default = "ubuntu-test"
+  default = "openSuseLeap"
 }
 
 variable "memory" {

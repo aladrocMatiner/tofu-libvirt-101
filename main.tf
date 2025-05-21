@@ -19,24 +19,38 @@ provider "libvirt" {
 ## Resources
 ######
 
-resource "libvirt_volume" "ubuntu-qcow2" {
-  name = "ubuntu22.qcow2"
-  pool = "default"
-  source = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+resource "libvirt_volume" "opensuse-qcow2" {
+  name   = "opensuse-leap.qcow2"
+  pool   = "default"
+  source = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.6/images/openSUSE-Leap-15.6.x86_64-NoCloud.qcow2"
   format = "qcow2"
 
   provisioner "local-exec" {
-    command = "sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/ubuntu22.qcow2 && sudo chmod 660 /var/lib/libvirt/images/ubuntu22.qcow2"
+    command = "sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/opensuse-leap.qcow2 && sudo chmod 660 /var/lib/libvirt/images/opensuse-leap.qcow2"
   }
 }
 
-resource "libvirt_domain" "ubuntu_vm" {
+
+
+# resource "libvirt_volume" "ubuntu-qcow2" {
+#   name = "ubuntu22.qcow2"
+#   pool = "default"
+#   source = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+#   format = "qcow2"
+
+#   provisioner "local-exec" {
+#     command = "sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/ubuntu22.qcow2 && sudo chmod 660 /var/lib/libvirt/images/ubuntu22.qcow2"
+#   }
+# }
+
+resource "libvirt_domain" "opensuse_vm" {
   name   = var.vm_name
   memory = var.memory
   vcpu   = var.vcpu
 
   disk {
-    volume_id = libvirt_volume.ubuntu-qcow2.id
+    volume_id = libvirt_volume.opensuse-qcow2.id
+    #volume_id = libvirt_volume.ubuntu-qcow2.id
   }
 
   network_interface {
@@ -88,7 +102,7 @@ resource "local_file" "ansible_inventory" {
   filename = "${path.module}/inventory.ini"
 
   content = <<EOF
-[ubuntu]
-${libvirt_domain.ubuntu_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
+[opensuse]
+${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
 EOF
 }

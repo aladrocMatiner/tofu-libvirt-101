@@ -22,15 +22,15 @@ packages:
 package_update: false
 package_upgrade: false
 
-write_files:
-  - path: /etc/apt/sources.list.d/ludd.list
-    permissions: '0644'
-    content: |
-      deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc) main restricted universe multiverse
-      deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-updates main restricted universe multiverse
-      deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-security main restricted universe multiverse
-      #deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-backports main restricted universe multiverse
-      #deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-proposed main restricted universe multiverse
+# write_files:
+#   - path: /etc/apt/sources.list.d/ludd.list
+#     permissions: '0644'
+#     content: |
+#       deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc) main restricted universe multiverse
+#       deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-updates main restricted universe multiverse
+#       deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-security main restricted universe multiverse
+#       #deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-backports main restricted universe multiverse
+#       #deb https://ftp.ludd.ltu.se/mirrors/ubuntu/ $(lsb_release -sc)-proposed main restricted universe multiverse
 
 # write_files:
 #   - path: /etc/apt/sources.list.d/bahnhof.list
