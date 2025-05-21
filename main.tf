@@ -1,3 +1,7 @@
+########
+## Providers
+######
+
 terraform {
   required_providers {
     libvirt = {
@@ -11,6 +15,9 @@ provider "libvirt" {
   uri = "qemu:///system"
 }
 
+########
+## Resources
+######
 
 resource "libvirt_volume" "ubuntu-qcow2" {
   name = "ubuntu22.qcow2"
@@ -34,6 +41,7 @@ resource "libvirt_domain" "ubuntu_vm" {
 
   network_interface {
     network_name = "default"
+    wait_for_lease = true
   }
 
   console {
@@ -51,6 +59,9 @@ resource "libvirt_domain" "ubuntu_vm" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 }
 
+########
+## Cloud Init
+######
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "cloudinit.iso"
   user_data      = data.template_file.user_data.rendered
@@ -68,4 +79,16 @@ data "template_file" "user_data" {
 
 data "template_file" "network_config" {
   template = file("${path.module}/cloud-init/network-config.yaml")
+}
+
+########
+## Ansible Inventory
+######
+resource "local_file" "ansible_inventory" {
+  filename = "${path.module}/inventory.ini"
+
+  content = <<EOF
+[ubuntu]
+${libvirt_domain.ubuntu_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
+EOF
 }
