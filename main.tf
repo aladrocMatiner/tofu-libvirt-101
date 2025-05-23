@@ -92,3 +92,22 @@ resource "local_file" "ansible_inventory" {
 ${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
 EOF
 }
+
+########
+## Salt Roster
+######
+resource "local_file" "salt_roster" {
+  filename = "${path.module}/roster"
+
+  content = <<EOF
+opensuse:
+  host: ${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]}
+  user: aladroc
+  priv: /home/aladroc/.ssh/id_rsa
+  python_path: /usr/bin/python3.10
+  ssh_options:
+    - "-o StrictHostKeyChecking=no"
+    - "-o UserKnownHostsFile=/dev/null"
+
+EOF
+}

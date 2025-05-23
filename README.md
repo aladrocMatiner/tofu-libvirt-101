@@ -74,7 +74,6 @@ tofu apply -auto-approve && virsh console ubuntu-demo
 
 # | Cloud Init
 
-
 Remember to generate your pasword using the SHA and update cloud-init/user-data.yaml 
 ```bash
 sudo apt update
