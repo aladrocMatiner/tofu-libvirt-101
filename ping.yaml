@@ -1,6 +1,6 @@
 ---
 - name: "Ping all hosts"
-  hosts: ubuntu
+  hosts: opensuse
   gather_facts: false
 
   vars:

@@ -81,6 +81,8 @@ sudo apt update
 sudo apt install whois
 
 mkpasswd --method=SHA-512
+or
+openssl passwd -6
 ```
 
 # | Known problems

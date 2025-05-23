@@ -1,20 +1,13 @@
 #cloud-config
-hostname: Testing
+hostname: opensuse-demo
 
 users:
-  - default
-  - name: opensuse
-    ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfsb4ArX5NyywwwZXojzwwcj3sMtCkb7PWkChK4TuLwP+mh4U1g3xcjK/2NavJQ0VIdyLrjkXk2JJZjoVlW4KYc9ycGMEaeNRXpfTg9SPtHJpTM/EHXV/pGsPGBVRXecHNsu6cFjvab4JwlyrxOMaf5YOzpHIclSEpgBLhTAKtEoVMkITCrpgZNPgOE8MKjBd74371ma+Z4MwSZI7pSp5iqkyNtEgXYV+aAV1zsuF52gWj0p702Ogz0UNrkTwQpWQHhc80tiu/Z4kpY2KvtpGzKfZb1EsPhcG6ws1/Rdx1KazxSEusJqMf49ma8DQsh9sMDVteSzUNS+awQ2Y2vljQEDrckea3SqVKD4GHtq8ZhmhosbLMBYSa25D2hwOFcsegxexlxV6eBMxVS5v0M/xncjUpU3QIQRCQy2mcgJrqK2fft2muCFUOjuw/bpyQIPX9tTDJaZZeByCzscurCtJx09qOSGrmuVZH3FEu9CSlQtZkUGcq9lJfQTO8pE9bgFOfkRAVULsoafHalorjMS+c7syda3w0Ia5iKT71FlvjVRtkWMK95dDQbjq1YDzUVmBM4H1lWjYW3LkUbC6n/0wrfyKg0+02pM7gh56GqnKGYSS5q/U/WwMK4YJaaPpb1pXthlMeSQyqfsr6QCUxcsTebx7bqpC1r4PHcbGroz3reQ== aladroc@josrom01-aladroc#StandardKey
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    shell: /bin/bash
   - name: aladroc
     gecos: Aladroc User
     shell: /bin/bash
     groups: users, sudo
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     lock_passwd: false
-    passwd: "$6$CQ3RAuhKjLyYX6Am$zM7nR1gsZUP.sQdDeukAjmW2DUIIs7rGhjk2/x9lTM.gia6v8XG3ejjplH.l19iV2vCmMDqHe1kC18Cw8VS51/"
     ssh_authorized_keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfsb4ArX5NyywwwZXojzwwcj3sMtCkb7PWkChK4TuLwP+mh4U1g3xcjK/2NavJQ0VIdyLrjkXk2JJZjoVlW4KYc9ycGMEaeNRXpfTg9SPtHJpTM/EHXV/pGsPGBVRXecHNsu6cFjvab4JwlyrxOMaf5YOzpHIclSEpgBLhTAKtEoVMkITCrpgZNPgOE8MKjBd74371ma+Z4MwSZI7pSp5iqkyNtEgXYV+aAV1zsuF52gWj0p702Ogz0UNrkTwQpWQHhc80tiu/Z4kpY2KvtpGzKfZb1EsPhcG6ws1/Rdx1KazxSEusJqMf49ma8DQsh9sMDVteSzUNS+awQ2Y2vljQEDrckea3SqVKD4GHtq8ZhmhosbLMBYSa25D2hwOFcsegxexlxV6eBMxVS5v0M/xncjUpU3QIQRCQy2mcgJrqK2fft2muCFUOjuw/bpyQIPX9tTDJaZZeByCzscurCtJx09qOSGrmuVZH3FEu9CSlQtZkUGcq9lJfQTO8pE9bgFOfkRAVULsoafHalorjMS+c7syda3w0Ia5iKT71FlvjVRtkWMK95dDQbjq1YDzUVmBM4H1lWjYW3LkUbC6n/0wrfyKg0+02pM7gh56GqnKGYSS5q/U/WwMK4YJaaPpb1pXthlMeSQyqfsr6QCUxcsTebx7bqpC1r4PHcbGroz3reQ== aladroc@josrom01-aladroc#StandardKey
 
@@ -23,25 +16,19 @@ disable_root: false
 
 chpasswd:
   list: |
-    opensuse:ba93e50d-2d7b-4c00-be3a-fc3c0a20ff53
-    aladroc:ba93e50d-2d7b-4c00-be3a-fc3c0a20ff53
+    aladroc:opensuse
   expire: False
 
 packages:
   - qemu-guest-agent
   - net-tools
   - btop
+  - python312
+  - python312-pip
 
 package_update: false
 package_upgrade: false
 
 runcmd:
-  - useradd -m -s /bin/bash -G users,sudo aladroc
-  - echo 'aladroc:secretKey' | chpasswd
-  - mkdir -p /home/aladroc/.ssh
-  - echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfsb4ArX5NyywwwZXojzwwcj3sMtCkb7PWkChK4TuLwP+mh4U1g3xcjK/2NavJQ0VIdyLrjkXk2JJZjoVlW4KYc9ycGMEaeNRXpfTg9SPtHJpTM/EHXV/pGsPGBVRXecHNsu6cFjvab4JwlyrxOMaf5YOzpHIclSEpgBLhTAKtEoVMkITCrpgZNPgOE8MKjBd74371ma+Z4MwSZI7pSp5iqkyNtEgXYV+aAV1zsuF52gWj0p702Ogz0UNrkTwQpWQHhc80tiu/Z4kpY2KvtpGzKfZb1EsPhcG6ws1/Rdx1KazxSEusJqMf49ma8DQsh9sMDVteSzUNS+awQ2Y2vljQEDrckea3SqVKD4GHtq8ZhmhosbLMBYSa25D2hwOFcsegxexlxV6eBMxVS5v0M/xncjUpU3QIQRCQy2mcgJrqK2fft2muCFUOjuw/bpyQIPX9tTDJaZZeByCzscurCtJx09qOSGrmuVZH3FEu9CSlQtZkUGcq9lJfQTO8pE9bgFOfkRAVULsoafHalorjMS+c7syda3w0Ia5iKT71FlvjVRtkWMK95dDQbjq1YDzUVmBM4H1lWjYW3LkUbC6n/0wrfyKg0+02pM7gh56GqnKGYSS5q/U/WwMK4YJaaPpb1pXthlMeSQyqfsr6QCUxcsTebx7bqpC1r4PHcbGroz3reQ== aladroc@josrom01-aladroc#StandardKey' > /home/aladroc/.ssh/authorized_keys
-  - chown -R aladroc:aladroc /home/aladroc/.ssh
-  - chmod 700 /home/aladroc/.ssh
-  - chmod 600 /home/aladroc/.ssh/authorized_keys
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
