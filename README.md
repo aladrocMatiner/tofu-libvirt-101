@@ -122,3 +122,42 @@ sudo systemctl restart libvirtd
 ```bash
 TF_LOG=DEBUG tofu apply -auto-approve
 ```
+
+# | Bonus :: Installing ansible script
+```bash
+## Install venv
+sudo apt update
+sudo apt install python3 python3-pip python3-venv build-essential libffi-dev libssl-dev
+
+## Install venv
+python3 -m venv venv-ansible
+source venv-ansible/bin/activate
+
+## Install ansible
+pip install --upgrade pip setuptools wheel
+pip install ansible
+
+## Get out
+deactivate
+```
+# | Bonus :: Installing salt script
+```bash
+## Install venv
+sudo apt update
+sudo apt install python3 python3-pip python3-venv build-essential libffi-dev libssl-dev
+sudo apt install build-essential python3-dev libssl-dev swig
+
+
+python3 -m venv venv-salt
+source venv-salt/bin/activate
+
+## Install salt
+pip install --upgrade pip setuptools wheel
+pip install tornado jinja2 msgpack psutil pycryptodome requests PyYAML markupsafe
+pip install pyzmq pygit2 cherrypy M2Crypto looseversion packaging distro
+
+pip install salt
+
+## get out of venv
+deactivate
+```
