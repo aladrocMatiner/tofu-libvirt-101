@@ -23,6 +23,7 @@ resource "libvirt_volume" "opensuse-qcow2" {
   name   = "opensuse-leap.qcow2"
   pool   = "default"
   source = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.6/images/openSUSE-Leap-15.6.x86_64-NoCloud.qcow2"
+  #source = "https://mirrorcache-br-3.opensuse.org/download/distribution/leap/15.6/appliances/openSUSE-Leap-15.6-Minimal-VM.x86_64-15.6.0-Cloud-Build16.13.qcow2"
   format = "qcow2"
 
   provisioner "local-exec" {
@@ -55,7 +56,7 @@ resource "libvirt_domain" "opensuse_vm" {
 
   network_interface {
     network_name = "default"
-    wait_for_lease = true
+#    wait_for_lease = true
   }
 
   console {
@@ -79,7 +80,7 @@ resource "libvirt_domain" "opensuse_vm" {
 resource "libvirt_cloudinit_disk" "commoninit" {
   name           = "cloudinit.iso"
   user_data      = data.template_file.user_data.rendered
-  network_config = data.template_file.network_config.rendered
+  #network_config = data.template_file.network_config.rendered
   pool           = "default"
 
   provisioner "local-exec" {
@@ -98,11 +99,11 @@ data "template_file" "network_config" {
 ########
 ## Ansible Inventory
 ######
-resource "local_file" "ansible_inventory" {
-  filename = "${path.module}/inventory.ini"
+# resource "local_file" "ansible_inventory" {
+#   filename = "${path.module}/inventory.ini"
 
-  content = <<EOF
-[opensuse]
-${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
-EOF
-}
+#   content = <<EOF
+# [opensuse]
+# ${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]} ansible_user=aladroc ansible_ssh_private_key_file=~/.ssh/id_rsa
+# EOF
+# }
