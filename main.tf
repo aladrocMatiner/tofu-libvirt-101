@@ -104,7 +104,7 @@ opensuse:
   host: ${libvirt_domain.opensuse_vm.network_interface.0.addresses[0]}
   user: aladroc
   priv: /home/aladroc/.ssh/id_rsa
-  python_path: /usr/bin/python3.10
+  python_path: /usr/bin/python3.1
   ssh_options:
     - "-o StrictHostKeyChecking=no"
     - "-o UserKnownHostsFile=/dev/null"

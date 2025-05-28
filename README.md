@@ -141,6 +141,12 @@ deactivate
 ```
 # | Bonus :: Installing salt script
 ```bash
+pyenv install 3.10.14
+pyenv virtualenv 3.10.14 venv-salt310
+pyenv activate venv-salt310
+
+
+
 ## Install venv
 sudo apt update
 sudo apt install python3 python3-pip python3-venv build-essential libffi-dev libssl-dev
@@ -154,6 +160,7 @@ source venv-salt/bin/activate
 pip install --upgrade pip setuptools wheel
 pip install tornado jinja2 msgpack psutil pycryptodome requests PyYAML markupsafe
 pip install pyzmq pygit2 cherrypy M2Crypto looseversion packaging distro
+pip install backports.ssl_match_hostname
 
 pip install salt
 
