@@ -27,3 +27,7 @@ terraform.rc
 *.bak
 *.swp
 *.tmp
+
+# Local tooling
+.python-version
+vpn-fix.sh
